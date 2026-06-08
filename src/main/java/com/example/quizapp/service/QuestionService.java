@@ -3,8 +3,11 @@ package com.example.quizapp.service;
 import com.example.quizapp.Dao.QuestionDao;
 import com.example.quizapp.model.Questions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,8 +15,13 @@ public class QuestionService {
     @Autowired
     QuestionDao questionDao;
 
-    public List<Questions> getAllQuestions() {
-      return   questionDao.findAll();
+    public ResponseEntity<List<Questions>> getAllQuestions() {
+        try {
+            return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
     }
 
 
