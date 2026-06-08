@@ -3,9 +3,7 @@ package com.example.quizapp.controller;
 import com.example.quizapp.model.Questions;
 import com.example.quizapp.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +19,15 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
+    @GetMapping("/category/{category}")
+     public List<Questions> getQuestionsByCategory(@PathVariable("category") String category)
+     {
+        return questionService.getQuestionsByCategory(category);
+     }
+     @PostMapping("add")
+     public Questions addQuestion(@RequestBody Questions questions)
+     {
+        return questionService.addQuestion(questions);
+
+     }
 }
